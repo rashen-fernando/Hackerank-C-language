@@ -1,0 +1,111 @@
+#include <stdio.h>
+#define row 100
+#define no 10000
+
+int rotateright(int ch);
+int rotateleft(int ch);
+int encode(int ch,int shift);
+
+int main()
+{
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    int shift;
+    char txt[row][no];
+    scanf("%d \n",&shift);
+    
+
+    for(int i=0;i<row;i++)
+    {
+    scanf("\n %[^\n]*c ",txt[i]);
+    
+    }
+    
+    printf("Here is the encoded text: \n");
+
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;txt[i][j]!='\0';j++)
+        {
+        printf("%c",encode(txt[i][j],shift));
+        }
+        printf("\n");
+    }
+    
+    
+    return 0;
+}
+
+int rotateright(int ch)
+{
+    if ((('A' <= ch)&&(ch<='Z'))||(('a' <= ch)&&(ch<='z')))
+    {
+        
+        if((ch)=='Z')
+        {
+            ch='A';
+        }
+        else if((ch)=='z')
+        {
+            ch='a';
+        }
+        else 
+        {
+            ch=ch+1;
+        }
+    }
+    else 
+    {
+        ch=ch;
+    }
+
+    return ch;
+}
+
+int rotateleft(int ch)
+{
+    if ((('A' <= ch)&&(ch<='Z'))||(('a' <= ch)&&(ch<='z')))
+    {
+        if((ch)=='A')
+        {
+            ch='Z';
+        }
+        else if((ch)=='a')
+        {
+            ch='z';
+        }
+        else 
+        {
+            ch=ch-1;
+        }
+    }
+    else 
+    {
+        ch=ch;
+    }
+
+    return ch;    
+}
+
+int encode(int ch,int shift)
+{
+    if(shift>0)
+    {
+        for(int i=0;i<shift;i++)
+        {
+            ch=rotateright(ch);
+        }
+    }
+    else if(shift<0)
+    {
+        for(int j=0;j<-1*shift;j++)
+        {
+            ch=rotateleft(ch);
+        }
+    }
+    else 
+    {
+        ch=ch;
+    }
+
+  return ch;  
+}
