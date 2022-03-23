@@ -1,0 +1,84 @@
+#include <stdio.h>
+
+int lent(char ch[])
+{
+    int l=0;
+    for(int i=0;ch[i]!='\0';i++)
+    {
+        l=l+1;
+        
+    }
+return l;
+}
+
+char upper(char ch)
+{
+    if(ch>='a'&&ch<='z')
+    {
+        ch=ch+'A'-'a';
+    }
+    else 
+    {
+    ch=ch;
+    }
+    return ch;
+}
+
+int occurrnec(char word[],char text[]);
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    char word[100];
+    char text[10000];
+
+    scanf("\n %[^\n]*c",word);
+    scanf("\n %[^\n]*c",text);
+
+    if(lent(word)==0||lent(text)==0)
+    {
+        printf("Wrong Input");
+    }
+    else 
+    {
+       
+        printf("The occurrences of \"%s\" in the text are %d.",word,occurrnec(word,text));
+    }
+
+    
+    return 0;
+}
+
+int occurrnec(char word[],char text[])
+{
+    int occur=0;
+
+    for(int i=0;text[i]!='\0';i++)
+    {
+        int yes=0;
+        for(int j=0;word[j]!='\0';j++)
+        {
+            if((upper(word[j])==upper(text[i+j]))&&
+            (i==0||(((text[i-1]<'a'&&text[i-1]>'Z')||(text[i-1]<'A'||text[i-1]>'z')) && ((text[i+lent(word)]<'a'&&text[i+lent(word)]>'Z')||(text[i+lent(word)]<'A'||text[i+lent(word)]>'z')))))
+            {
+                yes=yes+1;
+            }
+            else 
+            {
+                yes=yes;
+            }
+        }
+
+        if(yes==lent(word))
+        {
+            occur=occur+1;
+        }
+        else 
+        {
+        occur=occur;
+        }
+    }
+
+
+
+    return occur;
+}
